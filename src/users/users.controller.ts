@@ -10,13 +10,13 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { EmailService } from '../email/email.service';
+import { AuthService } from '../auth/auth.service';
 
 @Controller('users')
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,
-    private readonly emailService: EmailService,
+    private readonly authService: AuthService,
   ) {}
 
   @Post('signup')
@@ -26,7 +26,7 @@ export class UsersController {
 
   @Post('certification')
   certification(@Body() createUserDto: CreateUserDto) {
-    return this.emailService.send(createUserDto);
+    return this.authService.signUp(createUserDto);
   }
 
   @Get()

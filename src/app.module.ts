@@ -1,9 +1,11 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
-import { EmailService } from './email/email.service';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import smtpConfiguration from '../config/smtpConfiguration';
 
+@Global()
 @Module({
   imports: [
     UsersModule,
@@ -11,7 +13,7 @@ import smtpConfiguration from '../config/smtpConfiguration';
       load: [smtpConfiguration],
     }),
   ],
-  controllers: [],
-  providers: [EmailService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
