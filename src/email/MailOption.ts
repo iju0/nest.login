@@ -5,4 +5,5 @@ export class MailOption implements Mail.Options {
   to: string;
   subject: string;
   text: string;
+  html: string;
 }

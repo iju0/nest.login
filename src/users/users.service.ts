@@ -1,26 +1,39 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Post } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  private users: Array<User> = [
+    {
+      email: 'jk3a0123@naver.com',
+      password: '123456',
+      isActive: false,
+      accessToken: '11111',
+    },
+  ];
+
+  create(createUserDto: CreateUserDto, accessToken: string) {
+    const user: User = {
+      email: createUserDto.email,
+      password: createUserDto.password,
+      accessToken: accessToken,
+      isActive: false,
+    };
+    this.users.push(user);
   }
 
-  findAll() {
-    return `This action returns all users`;
+  findOne(email: string) {
+    return this.users.find((user) => user.email === email);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
-  }
-
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  signUp(user: User) {
+    return this.users.map((obj) => {
+      if (obj.email === user.email) {
+        return { ...obj, isActive: true };
+      }
+      return obj;
+    });
   }
 }

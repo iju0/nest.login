@@ -8,17 +8,8 @@ import { EmailModule } from '../email/email.module';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 
 @Module({
-  imports: [
-    AuthModule,
-    EmailModule,
-    JwtModule.register({
-      secretOrPrivateKey: 'secret-key',
-      signOptions: {
-        expiresIn: '60s',
-      },
-    }),
-  ],
+  imports: [],
   controllers: [UsersController],
-  providers: [UsersService, AuthService, EmailService],
+  providers: [UsersService],
 })
 export class UsersModule {}
