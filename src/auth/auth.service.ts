@@ -4,6 +4,7 @@ import { CreateUserDto } from '../users/dto/create-user.dto';
 import { MailOption } from '../email/MailOption';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
+import { User } from '../users/entities/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -47,5 +48,24 @@ export class AuthService {
     }
 
     this.usersService.signUp(user);
+  }
+
+  async validateUser(username: string, password: string): Promise<any> {
+    const user = await this.usersService.findOne(username);
+    if (user && user.password === password) {
+      return user;
+    }
+    return null;
+  }
+
+  login(email: string, password: string) {
+    const user = this.usersService.findOne(email);
+    if (!user || !user.isActive) {
+      throw new UnauthorizedException();
+    }
+    const payload = { email: user.email };
+    return {
+      access_token: this.jwtService.sign(payload),
+    };
   }
 }

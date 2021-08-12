@@ -10,7 +10,7 @@ export class UsersService {
       email: 'jk3a0123@naver.com',
       password: '123456',
       isActive: false,
-      accessToken: '11111',
+      accessToken: '',
     },
   ];
 
