@@ -7,9 +7,16 @@ import { AuthController } from './auth.controller';
 import { UsersModule } from '../users/users.module';
 import { UsersService } from '../users/users.service';
 import { LocalStrategy } from './strategies/local.strategy';
+import { JwtStrategy } from './strategies/jwt.strategy';
 
 @Module({
-  providers: [AuthService, EmailService, UsersService, LocalStrategy],
+  providers: [
+    AuthService,
+    EmailService,
+    UsersService,
+    LocalStrategy,
+    JwtStrategy,
+  ],
   imports: [
     UsersModule,
     EmailModule,

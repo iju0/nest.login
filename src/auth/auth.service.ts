@@ -4,7 +4,6 @@ import { CreateUserDto } from '../users/dto/create-user.dto';
 import { MailOption } from '../email/MailOption';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
-import { User } from '../users/entities/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -29,7 +28,7 @@ export class AuthService {
       to: 'insert@kakao.com',
       subject: '테스트입니다.',
       text: '인증토큰:' + this.jwtService.sign(payload),
-      html: `<a href='http://localhost:3000/auth/${accessToken}'>인증하러 가기</a>`,
+      html: `<a href='http://localhost:3000/auth/token/${accessToken}'>인증하러 가기</a>`,
     };
 
     return this.emailService.send(mailOption);
@@ -58,7 +57,7 @@ export class AuthService {
     return null;
   }
 
-  login(email: string, password: string) {
+  login(email: string) {
     const user = this.usersService.findOne(email);
     if (!user || !user.isActive) {
       throw new UnauthorizedException();

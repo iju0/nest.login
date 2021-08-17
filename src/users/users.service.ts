@@ -1,15 +1,14 @@
-import { Injectable, Post } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
   private users: Array<User> = [
     {
-      email: 'jk3a0123@naver.com',
+      email: 'user@example.com',
       password: '123456',
-      isActive: false,
+      isActive: true,
       accessToken: '',
     },
   ];
