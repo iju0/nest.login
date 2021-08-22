@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
+import { Role } from '../role.enum';
 
 @Injectable()
 export class UsersService {
@@ -10,6 +11,7 @@ export class UsersService {
       password: '123456',
       isActive: true,
       accessToken: '',
+      roles: [Role.User],
     },
   ];
 
@@ -19,6 +21,7 @@ export class UsersService {
       password: createUserDto.password,
       accessToken: accessToken,
       isActive: false,
+      roles: [Role.Admin],
     };
     this.users.push(user);
   }

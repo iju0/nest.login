@@ -24,8 +24,8 @@ export class AuthService {
     this.usersService.create(createUserDto, accessToken);
 
     const mailOption: MailOption = {
-      from: 'insert@kakao.com',
-      to: 'insert@kakao.com',
+      from: 'example@example.com',
+      to: 'example@example.com',
       subject: '테스트입니다.',
       text: '인증토큰:' + this.jwtService.sign(payload),
       html: `<a href='http://localhost:3000/auth/token/${accessToken}'>인증하러 가기</a>`,
@@ -62,7 +62,7 @@ export class AuthService {
     if (!user || !user.isActive) {
       throw new UnauthorizedException();
     }
-    const payload = { email: user.email };
+    const payload = { email: user.email, roles: user.roles };
     return {
       access_token: this.jwtService.sign(payload),
     };
